@@ -7,6 +7,7 @@ do
   if [ $(cat ./timeadd.txt) != "0" ]; then
     time=$(($time-$(cat ./timeadd.txt)))
     echo "0" > ./timeadd.txt
+    killed="false"
   fi
 
   ps -e | grep -v "grep" |  grep -q '/minecraft/runtime/java-runtime-gamma/'
