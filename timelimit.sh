@@ -1,11 +1,13 @@
 #!/bin/bash
 time=0
+script_dir=$(dirname "$0")
+timeadd_file="${script_dir}/timeadd.txt"
 
 while :
 do
-  if [ $(cat ./timeadd.txt) != "0" ]; then
-    time=$(($time-$(cat ./timeadd.txt)))
-    echo "0" > ./timeadd.txt
+  if [ $(cat ${timeadd_file}) != "0" ]; then
+    time=$(($time-$(cat ${timeadd_file})))
+    echo "0" > ${timeadd_file}
   fi
 
   ps -e | grep -v "grep" | grep -q '/minecraft/runtime/java-runtime-gamma/' && IS_MINECRAFT_RUNNING=0 || IS_MINECRAFT_RUNNING=1
