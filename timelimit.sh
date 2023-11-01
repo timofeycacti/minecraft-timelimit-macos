@@ -27,5 +27,10 @@ do
     kill -9 $(ps -e | grep -v "grep" | grep '/minecraft/runtime/java-runtime-gamma/' | xargs | cut -f1 -d" ")
   fi
 
-  sleep 1
+  if [ $(date | cut -f5 -d" " | cut -f1,2 -d":") = "00:00" ]; then
+    echo "TIME RESET"
+    time=0
+  fi
+  
+  sleep 60
 done
