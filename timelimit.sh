@@ -24,7 +24,7 @@ do
  
   if [ $time -gt 34 ] && [ $IS_MINECRAFT_RUNNING -eq 0 ]; then
     say "I am going to kill minecraft!"
-    kill -9 $(ps -e | grep -v "grep" | grep '/minecraft/runtime/java-runtime-gamma/' | cut -f1 -d" ")
+    kill -9 $(ps -e | grep -v "grep" | grep '/minecraft/runtime/java-runtime-gamma/' | xargs | cut -f1 -d" ")
   fi
 
   sleep 1
