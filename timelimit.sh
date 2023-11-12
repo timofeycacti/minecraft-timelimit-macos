@@ -2,12 +2,14 @@
 time=0
 script_dir=$(dirname "$0")
 timeadd_file="${script_dir}/timeadd.txt"
+day_start=$(date | cut -f3 -d" ")
 
 while :
 do
   if [ $(cat ${timeadd_file}) != "0" ]; then
     time=$(($time-$(cat ${timeadd_file})))
     echo "0" > ${timeadd_file}
+    echo "$(date) added more time" | tee -a ${script_dir}/log.log
   fi
 
   ps -e | grep -v "grep" | grep -q '/minecraft/runtime/java-runtime-gamma/' && IS_MINECRAFT_RUNNING=0 || IS_MINECRAFT_RUNNING=1
@@ -29,10 +31,12 @@ do
     kill -9 $(ps -e | grep -v "grep" | grep '/minecraft/runtime/java-runtime-gamma/' | xargs | cut -f1 -d" ")
   fi
 
-  if [ $(date | cut -f5 -d" " | cut -f1,2 -d":") = "00:00" ]; then
+  # NEW VERSION!
+  if [ $day_start -ne $(date | cut -f3 -d" ") ]; then
     echo "$(date) TIME RESET" | tee -a ${script_dir}/log.log
     time=0
+    day_start=$(date | cut -f3 -d" ")
   fi
-  
+
   sleep 60
 done
