@@ -2,10 +2,12 @@
 time=0
 script_dir=$(dirname "$0")
 timeadd_file="${script_dir}/timeadd.txt"
-day_start=$(date | cut -f3 -d" ")
+day_start=$(date +%d)
 
 while :
 do
+  echo "$(date) DATE START: $day_start" | tee -a ${script_dir}/log.log
+
   if [ $(cat ${timeadd_file}) != "0" ]; then
     time=$(($time-$(cat ${timeadd_file})))
     echo "0" > ${timeadd_file}
@@ -32,11 +34,12 @@ do
   fi
 
   # NEW VERSION!
-  if [ $day_start -ne $(date | cut -f3 -d" ") ]; then
+  if [ $day_start -ne $(date +%d) ]; then
     echo "$(date) TIME RESET" | tee -a ${script_dir}/log.log
     time=0
-    day_start=$(date | cut -f3 -d" ")
+    echo "UPDATING day_start" | tee -a ${script_dir}/log.log
+    day_start=$(date +%d)
   fi
 
-  sleep 60
+  sleep 5
 done
