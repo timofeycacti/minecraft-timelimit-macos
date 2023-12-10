@@ -41,5 +41,5 @@ do
     day_start=$(date +%d)
   fi
 
-  sleep 5
+  sleep 60
 done
