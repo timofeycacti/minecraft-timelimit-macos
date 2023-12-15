@@ -14,7 +14,8 @@ do
     echo "$(date) added more time" | tee -a ${script_dir}/log.log
   fi
 
-  ps -e | grep -v "grep" | grep -q '/minecraft/runtime/java-runtime-gamma/' && IS_MINECRAFT_RUNNING=0 || IS_MINECRAFT_RUNNING=1
+#  ps -e | grep -v "grep" | grep -q '/minecraft/runtime/java-runtime-gamma/' && IS_MINECRAFT_RUNNING=0 || IS_MINECRAFT_RUNNING=1
+  ps -e | grep -v "grep" | grep -q '/minecraft/' && IS_MINECRAFT_RUNNING=0 || IS_MINECRAFT_RUNNING=1
   if [ $IS_MINECRAFT_RUNNING -eq 0 ]; then
     ((time++))
     echo "$(date) time=${time}" | tee -a ${script_dir}/log.log
